@@ -4,6 +4,7 @@ namespace App\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 trait pictureNameTrait
 {
     #[ORM\Column(type: 'string', length: 255)]

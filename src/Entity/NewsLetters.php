@@ -5,8 +5,11 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\NewsLettersRepository;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: NewsLettersRepository::class)]
+#[Vich\Uploadable]
 class NewsLetters
 {
     use Traits\slugTrait;
@@ -24,11 +27,17 @@ class NewsLetters
     #[ORM\Column(length: 255)]
     private ?string $bannerName = null;
 
+    #[Vich\UploadableField(mapping: 'newsLetters', fileNameProperty: 'bannerName')]
+    private ?File $bannerFile = null;
+
     #[ORM\Column(length: 255)]
     private ?string $secondaryTitle = null;
 
     #[ORM\Column(length: 255)]
     private ?string $pictureSecondaryTitle = null;
+
+    #[Vich\UploadableField(mapping: 'newsLetters', fileNameProperty: 'pictureSecondaryTitle')]
+    private ?File $pictureSecondaryFile = null;
 
     public function getId(): ?int
     {
@@ -59,6 +68,22 @@ class NewsLetters
         return $this;
     }
 
+    public function setBannerFile(?File $bannerFile = null): void
+    {
+        $this->bannerFile = $bannerFile;
+
+        if (null !== $bannerFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getBannerFile(): ?File
+    {
+        return $this->bannerFile;
+    }
+
     public function getSecondaryTitle(): ?string
     {
         return $this->secondaryTitle;
@@ -81,5 +106,21 @@ class NewsLetters
         $this->pictureSecondaryTitle = $pictureSecondaryTitle;
 
         return $this;
+    }
+
+    public function setPictureSecondaryFile(?File $pictureSecondaryFile = null): void
+    {
+        $this->pictureSecondaryFile = $pictureSecondaryFile;
+
+        if (null !== $pictureSecondaryFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getPictureSecondaryFile(): ?File
+    {
+        return $this->pictureSecondaryFile;
     }
 }
