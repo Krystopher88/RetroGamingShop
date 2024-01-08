@@ -12,6 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[Vich\Uploadable]
 class NewsLetters
 {
+    use Traits\nameTrait;
     use Traits\slugTrait;
     use Traits\descriptionTrait;
     use TimestampableEntity;

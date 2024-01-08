@@ -15,7 +15,7 @@ trait pictureNameTrait
         return $this->pictureName;
     }
 
-    public function setPictureName(string $pictureName): pictureNameTrait
+    public function setPictureName(string $pictureName): self
     {
         $this->pictureName = $pictureName;
         return $this;
