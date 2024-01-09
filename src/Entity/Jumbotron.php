@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\JumbotronRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\JumbotronRepository;
 use Symfony\Component\HttpFoundation\File\File;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: JumbotronRepository::class)]
 #[Vich\Uploadable]
+#[ApiResource]
 class Jumbotron
 {
     use Traits\nameTrait;

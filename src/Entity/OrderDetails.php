@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\OrderDetailsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\OrderDetailsRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OrderDetailsRepository::class)]
+#[ApiResource]
 class OrderDetails
 {
     #[ORM\Id]
