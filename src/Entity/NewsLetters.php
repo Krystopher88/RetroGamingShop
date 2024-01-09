@@ -7,6 +7,7 @@ use App\Repository\NewsLettersRepository;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: NewsLettersRepository::class)]
 #[Vich\Uploadable]
@@ -39,6 +40,11 @@ class NewsLetters
 
     #[Vich\UploadableField(mapping: 'newsLetters', fileNameProperty: 'pictureSecondaryTitle')]
     private ?File $pictureSecondaryFile = null;
+
+    public function __contrsuct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {

@@ -7,6 +7,7 @@ use App\Repository\PicturesProductsRepository;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PicturesProductsRepository::class)]
 #[Vich\Uploadable]
@@ -17,7 +18,7 @@ class PicturesProducts
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[Vich\UploadableField(mapping: 'picturesProduct', fileNameProperty: 'pictureName')]
@@ -25,6 +26,11 @@ class PicturesProducts
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]
     private ?Products $products = null;
+
+    public function __contrsuct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {

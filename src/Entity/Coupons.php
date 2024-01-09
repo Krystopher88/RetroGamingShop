@@ -8,6 +8,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CouponsRepository;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CouponsRepository::class)]
 class Coupons
@@ -19,20 +20,26 @@ class Coupons
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 10)]
+    #[Assert\NotBlank(message: 'Le code ne peut pas être vide')]
+    #[Assert\Length(
+        min: 5,
+        max: 10,
+        minMessage: 'Le code doit faire au moins {{ limit }} caractères',
+        maxMessage: 'Le code doit faire au plus {{ limit }} caractères')]
     private ?string $code = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $discount = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $validity = null;
 
-    #[ORM\Column]
-    private ?bool $is_valid = null;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $is_valid = false;
 
     #[ORM\OneToMany(mappedBy: 'coupons', targetEntity: Orders::class)]
     private Collection $orders;
@@ -40,6 +47,7 @@ class Coupons
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

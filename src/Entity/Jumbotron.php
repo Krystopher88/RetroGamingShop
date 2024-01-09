@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: JumbotronRepository::class)]
 #[Vich\Uploadable]
@@ -20,14 +21,19 @@ class Jumbotron
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[Vich\UploadableField(mapping: 'jumbotron', fileNameProperty: 'pictureName')]
     private ?File $pictureFile = null;
 
-    #[ORM\Column]
-    private ?bool $is_publish = null;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $is_publish = false;
+
+    public function __contrsuct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
