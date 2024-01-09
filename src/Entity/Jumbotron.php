@@ -12,6 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[Vich\Uploadable]
 class Jumbotron
 {
+    use Traits\nameTrait;
     use Traits\slugTrait;
     use Traits\descriptionTrait;
     use Traits\pictureNameTrait;
@@ -22,9 +23,6 @@ class Jumbotron
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $title = null;
-
     #[Vich\UploadableField(mapping: 'jumbotron', fileNameProperty: 'pictureName')]
     private ?File $pictureFile = null;
 
@@ -34,18 +32,6 @@ class Jumbotron
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): static
-    {
-        $this->title = $title;
-
-        return $this;
     }
 
     public function setPictureFile(?File $pictureFile = null): void
@@ -69,7 +55,7 @@ class Jumbotron
         return $this->is_publish;
     }
 
-    public function setIsPublish(bool $is_publish): static
+    public function setIsPublish(bool $is_publish): self
     {
         $this->is_publish = $is_publish;
 

@@ -12,6 +12,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 #[ORM\Entity(repositoryClass: CouponsRepository::class)]
 class Coupons
 {
+    use Traits\nameTrait;
     use Traits\slugTrait;
     use Traits\descriptionTrait;
     use TimestampableEntity;
