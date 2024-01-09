@@ -7,6 +7,7 @@ use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
 class Products
@@ -18,13 +19,16 @@ class Products
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank(message: 'Le prix ne peut pas être vide')]
+    #[Assert\PositiveOrZero(message: 'Le prix ne peut pas être négatif')]
     private ?int $price = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
+    #[Assert\PositiveOrZero(message: 'Le stock ne peut pas être négatif')]
     private ?int $stock = null;
 
     #[ORM\OneToMany(mappedBy: 'products', targetEntity: PicturesProducts::class)]
@@ -46,6 +50,7 @@ class Products
     {
         $this->pictures = new ArrayCollection();
         $this->orderDetails = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

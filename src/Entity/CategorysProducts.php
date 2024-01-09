@@ -6,6 +6,7 @@ use App\Repository\CategorysProductsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategorysProductsRepository::class)]
 class CategorysProducts
@@ -15,7 +16,7 @@ class CategorysProducts
     
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Products::class)]

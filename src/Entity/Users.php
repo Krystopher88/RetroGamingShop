@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[Vich\Uploadable]
@@ -22,13 +23,22 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[Vich\UploadableField(mapping: 'users', fileNameProperty: 'pictureName')]
     private ?File $pictureFile = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Assert\NotBlank(message: 'L\'email ne peut pas être vide')]
+    #[Assert\Regex(
+        pattern: '/^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/i',
+        message: 'L\'email n\'est pas valide')]
+    #[Assert\Length(
+        min: 5,
+        max: 180,
+        minMessage: 'L\'email doit faire au moins {{ limit }} caractères',
+        maxMessage: 'L\'email doit faire au plus {{ limit }} caractères')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -37,13 +47,26 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
+    #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank(message: 'Le mot de passe ne peut pas être vide')]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 50)]
+    #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: 'Le nom doit faire au moins {{ limit }} caractères',
+        maxMessage: 'Le nom doit faire au plus {{ limit }} caractères')]
     private ?string $lastName = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 50)]
+    #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: 'Le prénom doit faire au moins {{ limit }} caractères',
+        maxMessage: 'Le prénom doit faire au plus {{ limit }} caractères')]
     private ?string $firstName = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -62,7 +85,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $country = null;
 
     #[ORM\Column]
-    private ?bool $is_valid = null;
+    private ?bool $is_valid = false;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Orders::class)]
     private Collection $orders;
