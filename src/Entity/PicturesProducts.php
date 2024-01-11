@@ -29,7 +29,7 @@ class PicturesProducts
     #[ORM\ManyToOne(inversedBy: 'pictures')]
     private ?Products $products = null;
 
-    public function __contrsuct()
+    public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
     }

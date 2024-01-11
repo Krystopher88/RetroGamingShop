@@ -32,7 +32,7 @@ class Jumbotron
     #[ORM\Column(type: 'boolean')]
     private ?bool $is_publish = false;
 
-    public function __contrsuct()
+    public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
     }

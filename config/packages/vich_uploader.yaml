@@ -9,23 +9,28 @@ vich_uploader:
       uri_prefix: /uploads/users
       upload_destination: "%kernel.project_dir%/public/uploads/users"
       namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+      inject_on_load: true
 
     picturesProduct:
       uri_prefix: /uploads/pictures/products
       upload_destination: "%kernel.project_dir%/public/uploads/pictures/products"
       namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+      inject_on_load: true
 
     picturesPlatsforms:
       uri_prefix: /uploads/pictures/platsforms
       upload_destination: "%kernel.project_dir%/public/uploads/pictures/platsforms"
       namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+      inject_on_load: true
 
     jumbotron:
       uri_prefix: /uploads/jumbotron
       upload_destination: "%kernel.project_dir%/public/uploads/jumbotron"
       namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+      inject_on_load: true
 
     newsLetters:
       uri_prefix: /uploads/newsLetters
       upload_destination: "%kernel.project_dir%/public/uploads/newsLetters"
       namer: Vich\UploaderBundle\Naming\UniqidNamer
+      inject_on_load: true

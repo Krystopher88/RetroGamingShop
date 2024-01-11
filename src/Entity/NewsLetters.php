@@ -43,7 +43,7 @@ class NewsLetters
     #[Vich\UploadableField(mapping: 'newsLetters', fileNameProperty: 'pictureSecondaryTitle')]
     private ?File $pictureSecondaryFile = null;
 
-    public function __contrsuct()
+    public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
     }
