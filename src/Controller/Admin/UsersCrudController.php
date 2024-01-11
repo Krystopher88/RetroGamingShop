@@ -3,13 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Users;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class UsersCrudController extends AbstractCrudController
 {
@@ -35,7 +35,7 @@ class UsersCrudController extends AbstractCrudController
     {
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
-            ->update(Crud::PAGE_INDEX, Action::NEW , function (Action $action) {
+            ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
                 return $action->setLabel('Ajouter un %entity_label_singular%');
             })
             ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, function (Action $action) {
@@ -69,7 +69,6 @@ class UsersCrudController extends AbstractCrudController
         ;
     }
 
-    
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('email', 'E-mail');
@@ -84,5 +83,4 @@ class UsersCrudController extends AbstractCrudController
         yield TextField::new('country', 'Pays');
         yield BooleanField::new('is_valid', 'Compte Vérifié');
     }
-    
 }

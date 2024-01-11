@@ -2,13 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\NewsLettersRepository;
-use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: NewsLettersRepository::class)]
 #[Vich\Uploadable]
@@ -77,7 +76,7 @@ class NewsLetters
         return $this;
     }
 
-    public function setBannerFile(?File $bannerFile = null): void
+    public function setBannerFile(File $bannerFile = null): void
     {
         $this->bannerFile = $bannerFile;
 
@@ -117,7 +116,7 @@ class NewsLetters
         return $this;
     }
 
-    public function setPictureSecondaryFile(?File $pictureSecondaryFile = null): void
+    public function setPictureSecondaryFile(File $pictureSecondaryFile = null): void
     {
         $this->pictureSecondaryFile = $pictureSecondaryFile;
 

@@ -3,8 +3,6 @@
 namespace App\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-
 
 trait pictureNameTrait
 {
@@ -19,6 +17,7 @@ trait pictureNameTrait
     public function setPictureName(string $pictureName): self
     {
         $this->pictureName = $pictureName;
+
         return $this;
     }
 }

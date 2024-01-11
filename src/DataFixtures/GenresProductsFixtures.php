@@ -42,7 +42,7 @@ class GenresProductsFixtures extends Fixture
         foreach ($genresProducts as $genre) {
             $genresProducts = new GenresProducts();
             $genresProducts->setName($genre);
-            
+
             $manager->persist($genresProducts);
         }
         $manager->flush();

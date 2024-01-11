@@ -13,7 +13,7 @@ class JumbotronFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        for ($jmb = 1; $jmb <= 10; $jmb++) {
+        for ($jmb = 1; $jmb <= 10; ++$jmb) {
             $jumbotron = new Jumbotron();
             $jumbotron->setName($faker->word);
             $jumbotron->setDescription($faker->sentence(2));

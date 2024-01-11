@@ -2,22 +2,15 @@
 
 namespace App\Controller\Admin;
 
-use App\Form\ProductsType;
 use App\Entity\PlatformsProducts;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use Symfony\Component\Validator\Constraints\Choice;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class PlatformsProductsCrudController extends AbstractCrudController
 {
@@ -26,7 +19,6 @@ class PlatformsProductsCrudController extends AbstractCrudController
         return PlatformsProducts::class;
     }
 
-    
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
@@ -44,7 +36,7 @@ class PlatformsProductsCrudController extends AbstractCrudController
     {
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
-            ->update(Crud::PAGE_INDEX, Action::NEW , function (Action $action) {
+            ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
                 return $action->setLabel('Ajouter une plateforme');
             })
             ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, function (Action $action) {
@@ -81,7 +73,7 @@ class PlatformsProductsCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name', 'Plateforme');
-        yield SlugField::new ('slug', 'Slug')
+        yield SlugField::new('slug', 'Slug')
             ->setTargetFieldName('name')
             ->OnlyOnIndex();
         yield TextField::new('pictureFile', 'Image')
@@ -91,5 +83,4 @@ class PlatformsProductsCrudController extends AbstractCrudController
             ->setBasePath('/uploads/pictures/platforms')
             ->OnlyOnIndex();
     }
-    
 }

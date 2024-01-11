@@ -4,18 +4,17 @@ namespace App\Controller\Admin;
 
 use App\Entity\Products;
 use App\Form\ProductsPicturesType;
-use App\Form\ProductsPlatformType;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class ProductsCrudController extends AbstractCrudController
 {
@@ -23,7 +22,7 @@ class ProductsCrudController extends AbstractCrudController
     {
         return Products::class;
     }
-    
+
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
@@ -41,7 +40,7 @@ class ProductsCrudController extends AbstractCrudController
     {
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
-            ->update(Crud::PAGE_INDEX, Action::NEW , function (Action $action) {
+            ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
                 return $action->setLabel('Ajouter un produit');
             })
             ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, function (Action $action) {
@@ -77,21 +76,20 @@ class ProductsCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield TextField::new ('name', 'Nom');
-        yield SlugField::new ('slug', 'Slug')
+        yield TextField::new('name', 'Nom');
+        yield SlugField::new('slug', 'Slug')
             ->setTargetFieldName('name')
             ->OnlyOnIndex();
-        yield TextEditorField::new ('description', 'Description');
-        yield MoneyField::new ('price', 'Prix')
+        yield TextEditorField::new('description', 'Description');
+        yield MoneyField::new('price', 'Prix')
             ->setNumDecimals(2)
             ->setCurrency('EUR');
-        yield IntegerField::new ('stock', 'Stock');
-        yield CollectionField::new ('pictures', 'Images')
+        yield IntegerField::new('stock', 'Stock');
+        yield CollectionField::new('pictures', 'Images')
             ->setEntryType(ProductsPicturesType::class)
             ->onlyOnForms();
-        yield AssociationField::new ('category', 'Catégorie');
-        yield AssociationField::new ('platform', 'PlateForme');
-        yield AssociationField::new ('genre', 'Genres');
-        
+        yield AssociationField::new('category', 'Catégorie');
+        yield AssociationField::new('platform', 'PlateForme');
+        yield AssociationField::new('genre', 'Genres');
     }
 }

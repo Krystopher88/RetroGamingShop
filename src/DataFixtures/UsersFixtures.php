@@ -35,8 +35,7 @@ class UsersFixtures extends Fixture
 
         $manager->persist($admin);
 
-
-        for ($usr = 1; $usr <= 10; $usr++) {
+        for ($usr = 1; $usr <= 10; ++$usr) {
             $users = new Users();
             $users->setEmail($faker->email);
             $users->setPassword(

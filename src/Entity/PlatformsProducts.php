@@ -2,15 +2,14 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
-use Doctrine\Common\Collections\Collection;
 use App\Repository\PlatformsProductsRepository;
-use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PlatformsProductsRepository::class)]
 #[Vich\Uploadable]
@@ -49,7 +48,7 @@ class PlatformsProducts
         return $this->id;
     }
 
-    public function setPictureFile(?File $pictureFile = null): void
+    public function setPictureFile(File $pictureFile = null): void
     {
         $this->pictureFile = $pictureFile;
 

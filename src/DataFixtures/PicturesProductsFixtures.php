@@ -3,8 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\PicturesProducts;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
 class PicturesProductsFixtures extends Fixture
@@ -13,7 +13,7 @@ class PicturesProductsFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        for ($pp = 1; $pp <= 50; $pp++) {
+        for ($pp = 1; $pp <= 50; ++$pp) {
             $picturesProducts = new PicturesProducts();
             $picturesProducts->setPictureName($faker->imageUrl(640, 480, 'RetroGamingShop'));
 

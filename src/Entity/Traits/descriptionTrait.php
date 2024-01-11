@@ -24,6 +24,7 @@ trait descriptionTrait
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
         return $this;
     }
 }
