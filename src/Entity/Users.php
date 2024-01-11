@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UsersRepository;
 use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\HttpFoundation\File\File;
+// use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ApiResource]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    use Traits\pictureNameTrait;
+    // use Traits\pictureNameTrait;
     use TimestampableEntity;
     
     #[ORM\Id]
@@ -28,8 +28,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[Vich\UploadableField(mapping: 'users', fileNameProperty: 'pictureName')]
-    private ?File $pictureFile = null;
+    // #[Vich\UploadableField(mapping: 'users', fileNameProperty: 'pictureName')]
+    // private ?File $pictureFile = null;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Assert\NotBlank(message: 'L\'email ne peut pas être vide')]
@@ -306,19 +306,19 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setPictureFile(?File $pictureFile = null): void
-    {
-        $this->pictureFile = $pictureFile;
+    // public function setPictureFile(?File $pictureFile = null): void
+    // {
+    //     $this->pictureFile = $pictureFile;
 
-        if (null !== $pictureFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
+    //     if (null !== $pictureFile) {
+    //         // It is required that at least one field changes if you are using doctrine
+    //         // otherwise the event listeners won't be called and the file is lost
+    //         $this->updatedAt = new \DateTimeImmutable();
+    //     }
+    // }
 
-    public function getPictureFile(): ?File
-    {
-        return $this->pictureFile;
-    }
+    // public function getPictureFile(): ?File
+    // {
+    //     return $this->pictureFile;
+    // }
 }
