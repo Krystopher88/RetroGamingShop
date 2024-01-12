@@ -2,23 +2,40 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\UsersRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Orders;
+use ApiPlatform\Metadata\Get;
 use Doctrine\DBAL\Types\Types;
-// use Symfony\Component\HttpFoundation\File\File;
+use ApiPlatform\Metadata\Patch;
 use Doctrine\ORM\Mapping as ORM;
+// use Symfony\Component\HttpFoundation\File\File;
+use App\Repository\UsersRepository;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[Vich\Uploadable]
-#[ApiResource]
-class Users implements UserInterface, PasswordAuthenticatedUserInterface
+#[ApiResource(
+    operations: [
+        new Get(
+            normalizationContext: [
+                'groups' => ['get', 'User:item:get'],
+            ],
+            security: "is_granted('ROLE_ADMIN') or object == user"
+        ),
+        new Patch(security: "is_granted('ROLE_ADMIN') or object == user"),
+        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
+    ],
+    normalizationContext: ['groups' => ['get']],
+)]
+class Users implements UserInterface, PasswordAuthenticatedUserInterface, JWTUserInterface
 {
     // use Traits\pictureNameTrait;
     use TimestampableEntity;
@@ -103,6 +120,13 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+    
     public function getEmail(): ?string
     {
         return $this->email;
@@ -321,4 +345,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     // {
     //     return $this->pictureFile;
     // }
+
+    public static function createFromPayload($username, array $payload): static
+    {
+        return (new self())
+        ->setRoles($payload['roles'])
+        ->setEmail($payload['email']);
+    }
 }
