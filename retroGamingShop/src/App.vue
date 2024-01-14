@@ -1,13 +1,17 @@
 <script>
-const parentMessage = 'Parent'
-const items = [{ message: 'Foo' }, { message: 'Bar' }]
+import ProductsList from "./components/ProductsList.vue";
+
+export default {
+  name: "App",
+  components: {
+    ProductsList,
+  },
+};
+
 </script>
 
 <template>
-<div id="app">
-    <h1>Mon application</h1>
-    <router-link to="/">Accueil</router-link>
-    <router-link to="/about">A propos</router-link>
-    <router-view></router-view>
+  <div id="app">
+    <ProductsList />
   </div>
 </template>
