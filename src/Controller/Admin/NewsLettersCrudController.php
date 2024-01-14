@@ -77,7 +77,7 @@ class NewsLettersCrudController extends AbstractCrudController
         yield TextField::new('bannerFile', 'Image')
             ->setFormType(VichImageType::class)
             ->OnlyOnForms();
-        yield ImageField::new('bannereName', 'Aperçu')
+        yield ImageField::new('bannerName', 'Aperçu')
             ->setBasePath('/uploads/pictures/platforms')
             ->OnlyOnIndex();
         yield TextField::new('secondaryTitle', 'Titre secondaire');
