@@ -1,23 +1,16 @@
+<template>
+    <TopNavBarVue />
+</template>
+
 <script>
-  import { onMounted } from "vue";
-  import { Tooltip, initTE } from "tw-elements";
-
-  onMounted(() => {
-    initTE({ Tooltip });
-  });
-import ProductsList from "./components/ProductsList.vue";
-
+import TopNavBarVue from './components/_HeaderComponents/TopNavBar.vue'
 export default {
-  name: "App",
   components: {
-    ProductsList,
-  },
-};
-
+    TopNavBarVue,
+  }
+}
 </script>
 
-<template>
-  <div id="app">
-    <ProductsList />
-  </div>
-</template>
+<style>
+
+</style>
