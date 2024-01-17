@@ -1,5 +1,8 @@
 <template>
+  <header class="bg-[#FBFBFB]">
     <TopNavBarVue />
+  </header>
+    
 </template>
 
 <script>
